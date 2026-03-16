@@ -96,7 +96,7 @@ nav {
   position: relative;
   padding-bottom: 3px;
 }
-.nav-links a::after {
+.nav-links a::after { 
   content: '';
   position: absolute;
   bottom: 0; left: 0;
@@ -117,7 +117,8 @@ section { position: relative; z-index: 1; }
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
+  align-items: flex-start;
   padding: 7rem 3rem 4rem;
   max-width: 1100px;
   margin: 0 auto;
@@ -137,34 +138,26 @@ section { position: relative; z-index: 1; }
   gap: 10px;
 }
 
-/* ── PING DOT ── */
+/* ── AVAILABLE DOT — matches experience section style ── */
 .ping-dot {
   position: relative;
   display: inline-block;
-  width: 9px;
-  height: 9px;
+  width: 8px;
+  height: 8px;
   flex-shrink: 0;
-}
-.ping-dot::before {
-  content: '';
-  position: absolute;
-  inset: 0;
   border-radius: 50%;
   background: var(--accent);
+  border: 2px solid var(--bg);
+  box-shadow: 0 0 0 1px var(--accent-d);
 }
 .ping-dot::after {
   content: '';
   position: absolute;
   inset: -4px;
   border-radius: 50%;
-  background: var(--accent);
-  opacity: 0.5;
-  animation: ping 1.6s ease-out infinite;
-}
-@keyframes ping {
-  0%   { transform: scale(1);   opacity: 0.5; }
-  80%  { transform: scale(2.4); opacity: 0; }
-  100% { transform: scale(2.4); opacity: 0; }
+  border: 1px solid var(--accent);
+  opacity: 0;
+  animation: dot-pulse 2.5s ease-out infinite;
 }
 
 .hero-name {
@@ -200,6 +193,8 @@ section { position: relative; z-index: 1; }
   opacity: 0;
   animation: fadeUp 0.7s ease 0.55s forwards;
 }
+
+/* ── PRIMARY BUTTON ── */
 .btn-primary {
   padding: 0.75rem 1.8rem;
   background: var(--accent);
@@ -217,7 +212,7 @@ section { position: relative; z-index: 1; }
   transition: transform 0.15s, box-shadow 0.2s;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 .btn-primary::before {
   content: '';
@@ -230,6 +225,24 @@ section { position: relative; z-index: 1; }
 .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(240,152,60,0.35); }
 .btn-primary:hover::before { transform: translateX(100%); }
 .btn-primary:active { transform: scale(0.96) translateY(0); }
+
+/* Eye icon inside btn-primary */
+.btn-eye {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+.btn-primary:hover .btn-eye {
+  animation: eye-blink 0.5s ease forwards;
+}
+@keyframes eye-blink {
+  0%   { transform: scaleY(1); }
+  30%  { transform: scaleY(0.08); }
+  60%  { transform: scaleY(1.15); }
+  100% { transform: scaleY(1); }
+}
 
 /* ripple */
 .btn-primary .ripple {
@@ -244,6 +257,7 @@ section { position: relative; z-index: 1; }
   to { transform: scale(4); opacity: 0; }
 }
 
+/* ── GHOST BUTTON ── */
 .btn-ghost {
   padding: 0.75rem 1.8rem;
   background: transparent;
@@ -260,6 +274,7 @@ section { position: relative; z-index: 1; }
   transition: border-color 0.25s, color 0.25s, transform 0.15s;
   display: inline-flex;
   align-items: center;
+  gap: 8px;
 }
 .btn-ghost::after {
   content: '';
@@ -272,6 +287,20 @@ section { position: relative; z-index: 1; }
 }
 .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
 .btn-ghost:hover::after { transform: scaleX(1); }
+
+/* Arrow icon inside btn-ghost */
+.btn-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+.btn-ghost:hover .btn-arrow {
+  transform: translateX(5px);
+}
 
 .hero-scroll {
   position: absolute;
@@ -379,31 +408,13 @@ section { position: relative; z-index: 1; }
   letter-spacing: 0.1em;
   color: var(--muted);
 }
-/* timeline dot pulse */
-.tline-dot {
-  position: absolute;
-  left: 175px;
-  top: 2rem;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--accent);
-  border: 2px solid var(--bg);
-  box-shadow: 0 0 0 1px var(--accent-d);
-}
-.tline-dot::after {
-  content: '';
-  position: absolute;
-  inset: -4px;
-  border-radius: 50%;
-  border: 1px solid var(--accent);
-  opacity: 0;
-  animation: dot-pulse 2.5s ease-out infinite;
-}
+
+/* Shared pulse animation used by both available dot and experience dots */
 @keyframes dot-pulse {
   0%   { transform: scale(1);   opacity: 0.6; }
   100% { transform: scale(2.4); opacity: 0; }
 }
+
 .about-stats {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -450,21 +461,6 @@ section { position: relative; z-index: 1; }
   color: var(--muted);
   line-height: 1.5;
 }
-.skill-bar-wrap {
-  margin-top: 0.8rem;
-  height: 3px;
-  background: rgba(255,255,255,0.06);
-  border-radius: 99px;
-  overflow: hidden;
-}
-.skill-bar {
-  height: 100%;
-  background: linear-gradient(90deg, var(--accent-d), var(--accent));
-  border-radius: 99px;
-  width: 0;
-  transition: width 1s cubic-bezier(0.16,1,0.3,1);
-}
-.skill-card.bar-ready .skill-bar { width: var(--bar-w, 80%); }
 
 /* ── PROJECTS ── */
 #projects { border-top: 1px solid var(--border); }
@@ -500,10 +496,6 @@ section { position: relative; z-index: 1; }
   box-shadow: 0 16px 40px rgba(240,152,60,0.1);
 }
 .proj-card:hover::before { opacity: 1; }
-.proj-card:hover {
-  border-color: var(--border-h);
-  transform: translateY(-4px);
-}
 .proj-header {
   display: flex;
   justify-content: space-between;
@@ -568,11 +560,13 @@ section { position: relative; z-index: 1; }
 }
 .tline-item {
   display: grid;
-  grid-template-columns: 180px 1fr;
-  gap: 2rem;
+  /* date | dot-column | content */
+  grid-template-columns: 180px 28px 1fr;
+  gap: 0 1.2rem;
   padding: 2rem 0;
   border-bottom: 1px solid var(--border);
   position: relative;
+  align-items: start;
 }
 .tline-item:first-child { padding-top: 0; }
 .tline-item:last-child  { border-bottom: none; }
@@ -583,6 +577,30 @@ section { position: relative; z-index: 1; }
   padding-top: 4px;
   letter-spacing: 0.05em;
 }
+
+/* ── EXPERIENCE DOT — column 2, aligned to title ── */
+.tline-dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+  box-shadow: 0 0 0 1px var(--accent-d);
+  justify-self: center;
+  margin-top: 5px; /* visually align with title baseline */
+  flex-shrink: 0;
+}
+.tline-dot::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  opacity: 0;
+  animation: dot-pulse 2.5s ease-out infinite;
+}
+
 .tline-role {
   font-size: 1.05rem;
   font-weight: 700;
@@ -754,16 +772,37 @@ footer {
 
 <!-- HERO -->
 <section id="hero">
-  <div style="max-width:1100px; margin:0 auto; padding: 0rem 0rem 4rem; position:relative; min-height:70vh; display:flex; flex-direction:column; justify-content:center;">
-    <p class="hero-tag"><span class="ping-dot"></span> Available for work — 2026</p>
+  <div style="max-width:1100px; width:100%; padding: 4rem 0rem 4rem; position:relative; min-height:70vh; display:flex; flex-direction:column; justify-content:center; align-items:flex-start;">
+    <p class="hero-tag">
+      <span class="ping-dot"></span>
+      Available for work — 2026
+    </p>
     <h1 class="hero-name" style="font-size: 100px;">
       FARHAN
-      <em>Designer &amp; Developer</em>
+      <span style="font-size: 50px;"><em>DESIGNER &amp; DEVELOPER</em></span>
     </h1>
     <p class="hero-sub" style="color: #ede8e0;">I build thoughtful digital experiences — from pixel-perfect interfaces to robust backend systems. Clean code, intentional design.</p>
     <div class="hero-cta">
-      <a href="#projects" class="btn-primary">View Work</a>
-      <a href="#contact"  class="btn-ghost">Get in Touch</a>
+      <!-- View Work: eye icon -->
+      <a href="#projects" class="btn-primary">
+        <span class="btn-eye">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </span>
+        View Work
+      </a>
+      <!-- Get in Touch: arrow icon -->
+      <a href="#contact" class="btn-ghost">
+        Get in Touch
+        <span class="btn-arrow">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </span>
+      </a>
     </div>
     <div class="hero-scroll">
       <span class="scroll-line"></span>
@@ -780,7 +819,7 @@ footer {
     <div class="about-grid">
       <div class="about-text reveal">
         <p style="color: #bdb5ad;">I'm a full-stack developer with a sharp eye for design. I care about the <span style="color: #f0983c;">intersection of aesthetics and function</span> — interfaces that feel as good as they look.</p>
-        <p style="color: #bdb5ad;">Currently based in <span style=" color: #f0983c">Indonesia</span>, open to remote work globally. I thrive on complex problems and shipping things that people actually enjoy using.</p>
+        <p style="color: #bdb5ad;">Currently based in <span style="color: #f0983c;">Indonesia</span>, open to remote work globally. I thrive on complex problems and shipping things that people actually enjoy using.</p>
         <p style="color: #bdb5ad;">When I'm not coding, you'll find me exploring type design, tinkering with mechanical keyboards, or overanalyzing film compositions.</p>
       </div>
       <div class="about-stats reveal">
@@ -815,37 +854,31 @@ footer {
         <span class="skill-icon">{;}</span>
         <div class="skill-name">Frontend</div>
         <div class="skill-desc">HTML, CSS, JavaScript, React, Vue, Tailwind</div>
-        <div class="skill-bar-wrap"><div class="skill-bar" style="width:92%"></div></div>
       </div>
       <div class="skill-card reveal">
         <span class="skill-icon">[λ]</span>
         <div class="skill-name">Backend</div>
         <div class="skill-desc">PHP, Node.js, Python, REST APIs, GraphQL</div>
-        <div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div>
       </div>
       <div class="skill-card reveal">
         <span class="skill-icon">[db]</span>
         <div class="skill-name">Database</div>
         <div class="skill-desc">MySQL, PostgreSQL, MongoDB, Redis</div>
-        <div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div>
       </div>
       <div class="skill-card reveal">
         <span class="skill-icon">&#9670;_&#9670;</span>
         <div class="skill-name">UI / UX Design</div>
         <div class="skill-desc">Figma, design systems, prototyping, accessibility</div>
-        <div class="skill-bar-wrap"><div class="skill-bar" style="width:88%"></div></div>
       </div>
       <div class="skill-card reveal">
         <span class="skill-icon">&gt;_</span>
         <div class="skill-name">DevOps</div>
         <div class="skill-desc">Docker, CI/CD, Linux, Nginx, AWS, Vercel</div>
-        <div class="skill-bar-wrap"><div class="skill-bar" style="width:70%"></div></div>
       </div>
       <div class="skill-card reveal">
         <span class="skill-icon">&#9651;&#9651;</span>
         <div class="skill-name">Mobile</div>
         <div class="skill-desc">React Native, PWA, responsive design patterns</div>
-        <div class="skill-bar-wrap"><div class="skill-bar" style="width:75%"></div></div>
       </div>
     </div>
   </div>
@@ -945,6 +978,7 @@ footer {
     <p class="section-label reveal">04 &nbsp; Experience</p>
     <h2 class="section-title reveal">Where I've worked</h2>
     <div class="timeline">
+
       <div class="tline-item reveal">
         <div class="tline-date">2022 — Present</div>
         <div class="tline-dot"></div>
@@ -954,6 +988,7 @@ footer {
           <div class="tline-body">Led frontend architecture for a SaaS product serving 50k+ users. Built component systems, improved Core Web Vitals by 40%, and mentored junior developers.</div>
         </div>
       </div>
+
       <div class="tline-item reveal">
         <div class="tline-date">2020 — 2022</div>
         <div class="tline-dot"></div>
@@ -963,6 +998,7 @@ footer {
           <div class="tline-body">Designed and built client websites and web apps across various industries. Specialized in performance optimization and mobile-first development.</div>
         </div>
       </div>
+
       <div class="tline-item reveal">
         <div class="tline-date">2018 — 2020</div>
         <div class="tline-dot"></div>
@@ -972,6 +1008,7 @@ footer {
           <div class="tline-body">Built features for an early-stage fintech product. Worked across PHP backend, React frontend, and MySQL databases in a fast-paced startup environment.</div>
         </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -985,17 +1022,17 @@ footer {
       <div class="reveal">
         <p class="contact-text">Have a project in mind, a role to fill, or just want to say hello? My inbox is always open.</p>
         <div class="contact-links">
-          <a class="clink" href="/cdn-cgi/l/email-protection#c3aba6afafac83baacb6b1ada2aea6eda0acae">
+          <a class="clink" href="mailto:farhan@example.com">
             <span class="clink-icon">@</span>
-            <span class="__cf_email__" data-cfemail="761e131a1a19360f19030418171b135815191b">[email&#160;protected]</span>
+            farhan@example.com
           </a>
           <a class="clink" href="https://github.com" target="_blank">
             <span class="clink-icon">/</span>
-            github.com/yourname
+            github.com/muhammadfarhanbinashrillah
           </a>
           <a class="clink" href="https://linkedin.com" target="_blank">
             <span class="clink-icon">in</span>
-            linkedin.com/in/yourname
+            linkedin.com/in/muhammadfarhanbinashrillah
           </a>
           <a class="clink" href="#">
             <span class="clink-icon">↓</span>
@@ -1005,7 +1042,7 @@ footer {
       </div>
       <form class="contact-form reveal" onsubmit="handleForm(event)">
         <div class="cf-field">
-          <label class="cf-label">Your name</label>
+          <label class="cf-label">Your Name</label>
           <input class="cf-input" type="text" placeholder="Alex Johnson" required>
         </div>
         <div class="cf-field">
@@ -1025,12 +1062,12 @@ footer {
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <span class="footer-copy">&copy; 2026 Your Name &mdash; Built with intention</span>
+    <span class="footer-copy">&copy; 2026 Muhammad Farhan Binashrillah &mdash; Built with intention</span>
     <a href="#hero" class="footer-back">Back to top &uarr;</a>
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 // ── SCROLL REVEAL (staggered) ──
 const reveals = document.querySelectorAll('.reveal');
 const revealObs = new IntersectionObserver((entries) => {
@@ -1044,24 +1081,6 @@ const revealObs = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.1 });
 reveals.forEach(el => revealObs.observe(el));
-
-// ── SKILL BAR ANIMATE ──
-document.querySelectorAll('.skill-card').forEach(card => {
-  const bar = card.querySelector('.skill-bar');
-  if (!bar) return;
-  const w = bar.style.width;
-  bar.style.removeProperty('width');
-  card.style.setProperty('--bar-w', w);
-  const barObs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('bar-ready'), 200);
-        barObs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.5 });
-  barObs.observe(card);
-});
 
 // ── COUNTER ANIMATION (about stats) ──
 function animateCounter(el) {
