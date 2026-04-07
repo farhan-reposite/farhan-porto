@@ -3,6 +3,7 @@
 
 CREATE TABLE IF NOT EXISTS projects (
   id          INTEGER PRIMARY KEY AUTOINCREMENT,
+  num         TEXT    NOT NULL,
   title       TEXT    NOT NULL,
   description TEXT    DEFAULT '',
   tags        TEXT    DEFAULT '',

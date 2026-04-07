@@ -28,21 +28,21 @@ html.light {
   --card:     #eceae600;
   --card-s:   #e2dfd9;
   --border:   rgba(0,0,0,0.08);
-  --border-h: rgba(192,110,26,0.3);
-  --accent:   #c06e1a;
-  --accent2:  #a05010;
-  --accent-d: #7a3c00;
+  --border-h: rgba(217,79,0,0.35);
+  --accent:   #d94f00;
+  --accent2:  #b83e00;
+  --accent-d: #8c2800;
   --cyan:     #1a7a9a;
   --text:     #1a1714;
-  --muted:    #6b6460;
+  --muted:    #5e5854;
 }
 html.light body::before {
   background-image:
-    linear-gradient(rgba(192,110,26,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(192,110,26,0.04) 1px, transparent 1px);
+    linear-gradient(rgba(217,79,0,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(217,79,0,0.04) 1px, transparent 1px);
 }
 html.light body::after {
-  background: radial-gradient(ellipse, rgba(192,110,26,0.07) 0%, transparent 65%);
+  background: radial-gradient(ellipse, rgba(217,79,0,0.07) 0%, transparent 65%);
 }
 html.light nav {
   background: rgba(245,242,238,0.85);
@@ -211,6 +211,7 @@ section { position: relative; z-index: 1; }
   margin-bottom: 1.5rem;
   opacity: 0;
   animation: fadeUp 0.7s ease 0.25s forwards;
+  color: var(--text);
 }
 .hero-name em {
   font-style: normal;
@@ -257,6 +258,7 @@ section { position: relative; z-index: 1; }
   align-items: center;
   gap: 8px;
 }
+html.light .btn-primary { color: #fff; }
 .btn-primary::before {
   content: '';
   position: absolute;
@@ -410,6 +412,7 @@ section { position: relative; z-index: 1; }
   letter-spacing: -0.03em;
   line-height: 1.1;
   margin-bottom: 3rem;
+  color: var(--text);
 }
 
 /* ── ABOUT ── */
@@ -427,7 +430,7 @@ section { position: relative; z-index: 1; }
   line-height: 1.9;
   margin-bottom: 1rem;
 }
-.about-text p span { color: var(--accent2); }
+.about-text p .accent-word { color: var(--accent); }
 .astat {
   background: var(--card-s);
   border: 1px solid var(--border);
@@ -496,6 +499,7 @@ section { position: relative; z-index: 1; }
   font-weight: 700;
   font-size: 0.95rem;
   margin-bottom: 4px;
+  color: var(--text);
 }
 .skill-desc {
   font-family: var(--mono);
@@ -560,6 +564,7 @@ section { position: relative; z-index: 1; }
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.2;
+  color: var(--text);
 }
 .proj-desc {
   font-family: var(--mono);
@@ -587,10 +592,18 @@ section { position: relative; z-index: 1; }
   transition: background 0.2s, border-color 0.2s, transform 0.2s;
   cursor: default;
 }
+html.light .tag {
+  background: rgba(217,79,0,0.08);
+  border-color: rgba(217,79,0,0.25);
+}
 .tag:hover {
   background: rgba(240,152,60,0.16);
   border-color: rgba(240,152,60,0.45);
   transform: translateY(-2px);
+}
+html.light .tag:hover {
+  background: rgba(217,79,0,0.15);
+  border-color: rgba(217,79,0,0.5);
 }
 
 /* ── PROJECTS LOADING STATE ── */
@@ -655,6 +668,7 @@ section { position: relative; z-index: 1; }
   font-size: 1.05rem;
   font-weight: 700;
   margin-bottom: 2px;
+  color: var(--text);
 }
 .tline-company {
   font-family: var(--mono);
@@ -745,6 +759,9 @@ section { position: relative; z-index: 1; }
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(240,152,60,0.08);
 }
+html.light .cf-input:focus, html.light .cf-textarea:focus {
+  box-shadow: 0 0 0 3px rgba(217,79,0,0.1);
+}
 .cf-input::placeholder, .cf-textarea::placeholder { color: var(--muted); }
 
 /* ── FOOTER ── */
@@ -832,7 +849,7 @@ footer {
       FARHAN
       <span style="font-size: 30px;"><em>Developer &amp; Designer</em></span>
     </h1>
-    <p class="hero-sub" style="color: #ede8e0;">I build thoughtful digital experiences — from pixel-perfect interfaces to robust backend systems. Clean code, intentional design.</p>
+    <p class="hero-sub">I build thoughtful digital experiences — from pixel-perfect interfaces to robust backend systems. Clean code, intentional design.</p>
     <div class="hero-cta">
       <a href="#projects" class="btn-primary">
         <span class="btn-eye">
@@ -867,9 +884,9 @@ footer {
     <h2 class="section-title reveal">A bit about me</h2>
     <div class="about-grid">
       <div class="about-text reveal">
-        <p style="color: #bdb5ad;">I'm a full-stack developer with a sharp eye for design. I care about the <span style="color: #f0983c;">intersection of aesthetics and function</span> — interfaces that feel as good as they look.</p>
-        <p style="color: #bdb5ad;">Currently based in <span style="color: #f0983c;">Indonesia</span>, open to remote work globally. I thrive on complex problems and shipping things that people actually enjoy using.</p>
-        <p style="color: #bdb5ad;">When I'm not coding, you'll find me exploring type design, tinkering with mechanical keyboards, or overanalyzing film compositions.</p>
+        <p>I'm a full-stack developer with a sharp eye for design. I care about the <span class="accent-word">intersection of aesthetics and function</span> — interfaces that feel as good as they look.</p>
+        <p>Currently based in <span class="accent-word">Indonesia</span>, open to remote work globally. I thrive on complex problems and shipping things that people actually enjoy using.</p>
+        <p>When I'm not coding, you'll find me exploring type design, tinkering with mechanical keyboards, or overanalyzing film compositions.</p>
       </div>
       <div class="about-stats reveal">
         <div class="astat">
@@ -1087,14 +1104,12 @@ async function loadProjects() {
     const res = await fetch('/api/projects');
     if (!res.ok) throw new Error('API error');
     const projects = await res.json();
-    // If DB is empty, use fallback
     if (projects.length === 0) {
       renderProjects(FALLBACK_PROJECTS);
     } else {
       renderProjects(projects);
     }
   } catch (err) {
-    // API not available yet (local dev, or D1 not set up) — use fallback
     console.log('Using fallback projects (API unavailable):', err.message);
     renderProjects(FALLBACK_PROJECTS);
   }
